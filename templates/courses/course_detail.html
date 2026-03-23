@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<section class="course-detail">
+    <div class="container">
+        <div class="course-detail-grid">
+            <div class="course-info">
+                {% if course.image %}
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width:100%;border-radius:12px;margin-bottom:20px;">
+                {% endif %}
+                <span class="badge badge-{{ course.level }}">{{ course.get_level_display }}</span>
+                <h1>{{ course.title }}</h1>
+                <div class="course-meta" style="margin-bottom:20px;">
+                    <span>By {{ course.instructor }}</span>
+                    {% if course.category %}
+                        <span>{{ course.category.name }}</span>
+                    {% endif %}
+                    <span>{{ course.duration_hours }} hours</span>
+                </div>
+                <div style="line-height:1.8;color:#444;">
+                    {{ course.description|linebreaks }}
+                </div>
+            </div>
+
+            <div class="course-sidebar">
+                <div class="purchase-card">
+                    <span class="price">
+                        ${{ course.effective_price }}
+                        {% if course.discount_price %}
+                            <span class="price-original">${{ course.price }}</span>
+                        {% endif %}
+                    </span>
+
+                    {% if is_enrolled %}
+                        <div class="alert alert-success" style="margin-bottom:15px;">
+                            You are enrolled in this course!
+                        </div>
+                        <a href="{% url 'my_courses' %}" class="btn btn-primary btn-block">Go to My Courses</a>
+                    {% elif user.is_authenticated %}
+                        <a href="{% url 'create_payment' course.slug %}" class="btn btn-success btn-block btn-lg">
+                            Buy Now with PayPal
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary btn-block btn-lg">
+                            Login to Purchase
+                        </a>
+                        <p style="margin-top:10px;color:#888;font-size:0.9rem;">
+                            Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+                        </p>
+                    {% endif %}
+
+                    <ul class="course-features">
+                        <li>{{ course.duration_hours }} hours of content</li>
+                        <li>{{ course.get_level_display }} level</li>
+                        <li>Lifetime access</li>
+                        <li>Certificate of completion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

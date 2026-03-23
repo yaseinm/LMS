@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">My Courses</h2>
+        {% if enrollments %}
+        <div class="course-grid">
+            {% for enrollment in enrollments %}
+            <div class="course-card">
+                {% if enrollment.course.image %}
+                    <img src="{{ enrollment.course.image.url }}" alt="{{ enrollment.course.title }}" class="course-card-img">
+                {% else %}
+                    <div class="course-card-img"></div>
+                {% endif %}
+                <div class="course-card-body">
+                    <h3><a href="{% url 'course_detail' enrollment.course.slug %}">{{ enrollment.course.title }}</a></h3>
+                    <div class="course-meta">
+                        <span>{{ enrollment.course.instructor }}</span>
+                        <span>Enrolled {{ enrollment.enrolled_at|date:"M d, Y" }}</span>
+                    </div>
+                    <p class="description">{{ enrollment.course.short_description|default:enrollment.course.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h3>No courses yet</h3>
+            <p>Browse our catalog and enroll in a course to get started.</p>
+            <a href="{% url 'course_list' %}" class="btn btn-primary" style="margin-top:15px;">Browse Courses</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

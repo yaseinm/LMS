@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Training Courses{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Level Up Your Skills</h1>
+        <p>Browse our expert-led training courses and start learning today</p>
+        <form class="search-bar" method="get" action="{% url 'course_list' %}">
+            <input type="text" name="q" placeholder="Search courses..." value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="filters">
+            <a href="{% url 'course_list' %}" class="filter-btn {% if not selected_category and not selected_level %}active{% endif %}">All</a>
+            {% for cat in categories %}
+                <a href="{% url 'course_list' %}?category={{ cat.slug }}" class="filter-btn {% if selected_category == cat.slug %}active{% endif %}">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="filters">
+            <a href="{% url 'course_list' %}" class="filter-btn {% if not selected_level %}active{% endif %}">All Levels</a>
+            <a href="{% url 'course_list' %}?level=beginner" class="filter-btn {% if selected_level == 'beginner' %}active{% endif %}">Beginner</a>
+            <a href="{% url 'course_list' %}?level=intermediate" class="filter-btn {% if selected_level == 'intermediate' %}active{% endif %}">Intermediate</a>
+            <a href="{% url 'course_list' %}?level=advanced" class="filter-btn {% if selected_level == 'advanced' %}active{% endif %}">Advanced</a>
+        </div>
+
+        {% if courses %}
+        <div class="course-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                {% if course.image %}
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-card-img">
+                {% else %}
+                    <div class="course-card-img"></div>
+                {% endif %}
+                <div class="course-card-body">
+                    <h3><a href="{% url 'course_detail' course.slug %}">{{ course.title }}</a></h3>
+                    <div class="course-meta">
+                        <span>{{ course.instructor }}</span>
+                        <span>{{ course.duration_hours }}h</span>
+                        <span class="badge badge-{{ course.level }}">{{ course.get_level_display }}</span>
+                    </div>
+                    <p class="description">{{ course.short_description|default:course.description }}</p>
+                    <div class="course-card-footer">
+                        <div>
+                            <span class="price">${{ course.effective_price }}</span>
+                            {% if course.discount_price %}
+                                <span class="price-original">${{ course.price }}</span>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'course_detail' course.slug %}" class="btn btn-primary btn-sm">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h3>No courses found</h3>
+            <p>Try adjusting your search or filters.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
