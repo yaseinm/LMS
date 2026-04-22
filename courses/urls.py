@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path("", views.course_list, name="course_list"),
+    path("genaibiz/", views.genaibiz, name="genaibiz"),
     path("my-courses/", views.my_courses, name="my_courses"),
     path("course/<slug:slug>/", views.course_detail, name="course_detail"),
 ]

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .models import Course, Category, Enrollment
+from .models import Course, Category, CourseRegistration, Enrollment
 
 
 def course_list(request):
@@ -48,6 +48,31 @@ def course_detail(request, slug):
 def my_courses(request):
     enrollments = Enrollment.objects.filter(user=request.user).select_related("course")
     return render(request, "courses/my_courses.html", {"enrollments": enrollments})
+
+
+def genaibiz(request):
+    submitted = False
+    if request.method == "POST":
+        full_name = request.POST.get("full_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        phone = request.POST.get("phone", "").strip()
+        company = request.POST.get("company", "").strip()
+        job_title = request.POST.get("job_title", "").strip()
+        message = request.POST.get("message", "").strip()
+
+        if full_name and email and phone:
+            CourseRegistration.objects.create(
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                company=company,
+                job_title=job_title,
+                course_name="GenAIBIZ",
+                message=message,
+            )
+            submitted = True
+
+    return render(request, "courses/genaibiz.html", {"submitted": submitted})
 
 
 def register(request):

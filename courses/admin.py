@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Course, Enrollment
+from .models import Category, Course, CourseRegistration, Enrollment
 
 
 @admin.register(Category)
@@ -14,6 +14,13 @@ class CourseAdmin(admin.ModelAdmin):
     list_filter = ["category", "level", "is_published"]
     search_fields = ["title", "description", "instructor"]
     prepopulated_fields = {"slug": ("title",)}
+
+
+@admin.register(CourseRegistration)
+class CourseRegistrationAdmin(admin.ModelAdmin):
+    list_display = ["full_name", "email", "phone", "course_name", "is_paid", "registered_at"]
+    list_filter = ["is_paid", "course_name", "registered_at"]
+    search_fields = ["full_name", "email", "phone"]
 
 
 @admin.register(Enrollment)

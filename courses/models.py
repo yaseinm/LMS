@@ -52,6 +52,24 @@ class Course(models.Model):
         return self.discount_price if self.discount_price else self.price
 
 
+class CourseRegistration(models.Model):
+    full_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    company = models.CharField(max_length=150, blank=True)
+    job_title = models.CharField(max_length=150, blank=True)
+    course_name = models.CharField(max_length=200, default="GenAIBIZ")
+    message = models.TextField(blank=True)
+    registered_at = models.DateTimeField(auto_now_add=True)
+    is_paid = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-registered_at"]
+
+    def __str__(self):
+        return f"{self.full_name} - {self.course_name}"
+
+
 class Enrollment(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="enrollments"

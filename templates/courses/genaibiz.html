@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAIBIZ - دورة الذكاء الاصطناعي التوليدي للأعمال</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Tajawal', sans-serif; line-height: 1.8; color: #1e293b; background: #f8fafc; }
+        a { text-decoration: none; color: #2563eb; }
+        img { max-width: 100%; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Navbar */
+        .navbar { background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); padding: 14px 0; position: sticky; top: 0; z-index: 100; }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; color: #7c3aed; }
+        .nav-brand span { color: #2563eb; }
+        .nav-links { display: flex; gap: 22px; align-items: center; }
+        .nav-links a { color: #555; font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: #7c3aed; }
+
+        /* Hero */
+        .hero { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 100%); color: #fff; padding: 70px 0 60px; position: relative; overflow: hidden; }
+        .hero::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 70% 50%, rgba(139,92,246,0.15) 0%, transparent 50%); }
+        .hero-content { position: relative; z-index: 1; text-align: center; }
+        .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 6px 20px; border-radius: 30px; font-size: 0.9rem; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.2); }
+        .hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 15px; line-height: 1.4; }
+        .hero h1 span { color: #a78bfa; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto 30px; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; transition: all 0.3s; font-family: 'Tajawal', sans-serif; }
+        .btn-primary { background: #7c3aed; color: #fff; }
+        .btn-primary:hover { background: #6d28d9; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124,58,237,0.4); color: #fff; }
+        .btn-outline-light { background: transparent; border: 2px solid rgba(255,255,255,0.5); color: #fff; }
+        .btn-outline-light:hover { background: rgba(255,255,255,0.1); border-color: #fff; color: #fff; }
+        .btn-paypal { background: #ffc439; color: #253b80; font-weight: 800; font-size: 1.1rem; padding: 16px 40px; }
+        .btn-paypal:hover { background: #f0b72d; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,196,57,0.4); color: #253b80; }
+
+        /* Stats */
+        .stats { display: flex; justify-content: center; gap: 50px; margin-top: 40px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 1.8rem; font-weight: 800; color: #a78bfa; }
+        .stat-label { font-size: 0.85rem; opacity: 0.8; }
+
+        /* Section */
+        .section { padding: 60px 0; }
+        .section-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 15px; color: #1e1b4b; }
+        .section-subtitle { text-align: center; color: #64748b; font-size: 1.05rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* About */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .about-text h2 { font-size: 1.8rem; font-weight: 800; color: #1e1b4b; margin-bottom: 15px; }
+        .about-text p { color: #475569; margin-bottom: 15px; }
+        .about-image { background: linear-gradient(135deg, #7c3aed, #2563eb); border-radius: 16px; padding: 40px; color: #fff; text-align: center; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .about-image .icon { font-size: 4rem; margin-bottom: 15px; }
+        .about-image h3 { font-size: 1.5rem; margin-bottom: 8px; }
+        .cert-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 8px; margin-top: 15px; font-weight: 600; }
+
+        /* Topics */
+        .topics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .topic-card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-right: 4px solid #7c3aed; transition: transform 0.2s; }
+        .topic-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        .topic-num { display: inline-block; background: #ede9fe; color: #7c3aed; width: 36px; height: 36px; border-radius: 8px; text-align: center; line-height: 36px; font-weight: 800; font-size: 0.9rem; margin-bottom: 12px; }
+        .topic-card h3 { font-size: 1.05rem; margin-bottom: 8px; color: #1e1b4b; }
+        .topic-card p { color: #64748b; font-size: 0.9rem; }
+
+        /* Audience */
+        .audience-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .audience-card { background: #fff; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .audience-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .audience-card h3 { font-size: 1rem; color: #1e1b4b; margin-bottom: 6px; }
+        .audience-card p { color: #64748b; font-size: 0.88rem; }
+
+        /* Features */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .feature-card { background: #fff; border-radius: 12px; padding: 25px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .feature-icon { font-size: 2rem; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 1rem; color: #1e1b4b; margin-bottom: 6px; }
+        .feature-card p { color: #64748b; font-size: 0.88rem; }
+
+        /* Registration */
+        .reg-section { background: linear-gradient(135deg, #1e1b4b, #312e81); padding: 60px 0; }
+        .reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .reg-info { color: #fff; }
+        .reg-info h2 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; }
+        .reg-info p { opacity: 0.85; margin-bottom: 20px; font-size: 1.05rem; }
+        .reg-price { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .reg-price .label { font-size: 0.9rem; opacity: 0.8; }
+        .reg-price .amount { font-size: 2.5rem; font-weight: 900; color: #a78bfa; }
+        .reg-includes { list-style: none; }
+        .reg-includes li { padding: 8px 0; opacity: 0.9; font-size: 0.95rem; }
+        .reg-includes li::before { content: '\2713'; display: inline-block; margin-left: 10px; color: #a78bfa; font-weight: 700; }
+
+        .reg-form-card { background: #fff; border-radius: 16px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .reg-form-card h3 { text-align: center; font-size: 1.3rem; color: #1e1b4b; margin-bottom: 25px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #475569; font-size: 0.9rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem; font-family: 'Tajawal', sans-serif; direction: rtl; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-submit { width: 100%; padding: 14px; background: #7c3aed; color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; font-family: 'Tajawal', sans-serif; transition: all 0.3s; }
+        .btn-submit:hover { background: #6d28d9; }
+        .form-divider { text-align: center; margin: 18px 0; color: #94a3b8; font-size: 0.9rem; position: relative; }
+        .form-divider::before, .form-divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #e2e8f0; }
+        .form-divider::before { right: 0; }
+        .form-divider::after { left: 0; }
+        .paypal-btn-wrap { text-align: center; }
+        .paypal-btn-wrap .btn-paypal { width: 100%; }
+
+        /* Success Message */
+        .success-msg { background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 12px; padding: 30px; text-align: center; }
+        .success-msg h3 { color: #065f46; margin-bottom: 10px; font-size: 1.3rem; }
+        .success-msg p { color: #047857; margin-bottom: 20px; }
+
+        /* CTA */
+        .cta-section { background: #fff; padding: 60px 0; text-align: center; }
+        .cta-section h2 { font-size: 2rem; font-weight: 800; color: #1e1b4b; margin-bottom: 12px; }
+        .cta-section p { color: #64748b; font-size: 1.05rem; margin-bottom: 25px; }
+
+        /* Footer */
+        .footer { background: #0f172a; color: #94a3b8; padding: 30px 0; text-align: center; }
+        .footer a { color: #a78bfa; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .about-grid, .reg-grid { grid-template-columns: 1fr; }
+            .stats { gap: 25px; }
+            .form-row { grid-template-columns: 1fr; }
+            .nav-links { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a href="/genaibiz/" class="nav-brand">Gen<span>AI</span>BIZ</a>
+        <div class="nav-links">
+            <a href="#about">عن الدورة</a>
+            <a href="#topics">المحاور</a>
+            <a href="#audience">الفئة المستهدفة</a>
+            <a href="#register">التسجيل</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-badge">شهادة معتمدة من CertNexus</div>
+        <h1>دورة <span>الذكاء الاصطناعي التوليدي</span><br>للأعمال - GenAIBIZ</h1>
+        <p>تعلّم كيف تستفيد من تقنيات الذكاء الاصطناعي التوليدي لتحسين الإنتاجية وتطوير أعمالك واتخاذ قرارات أذكى</p>
+        <div class="hero-buttons">
+            <a href="#register" class="btn btn-primary">سجّل الآن</a>
+            <a href="#about" class="btn btn-outline-light">تعرّف على الدورة</a>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">8</div>
+                <div class="stat-label">ساعات تدريبية</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">5</div>
+                <div class="stat-label">محاور رئيسية</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">GenAIBIZ</div>
+                <div class="stat-label">شهادة دولية</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+    <div class="container about-grid">
+        <div class="about-text">
+            <h2>ما هي دورة GenAIBIZ؟</h2>
+            <p>
+                دورة GenAIBIZ من CertNexus هي برنامج تدريبي متخصص يُعدّ المهنيين ورواد الأعمال لفهم واستخدام تقنيات الذكاء الاصطناعي التوليدي (Generative AI) في بيئة العمل بشكل فعّال ومسؤول.
+            </p>
+            <p>
+                تغطي الدورة المفاهيم الأساسية للذكاء الاصطناعي التوليدي، وكيفية تطبيقه في مختلف القطاعات، وأفضل الممارسات لاستخدامه بشكل أخلاقي ومسؤول، بالإضافة إلى استراتيجيات دمجه في العمليات التجارية.
+            </p>
+            <p>
+                عند إتمام الدورة بنجاح، يحصل المتدرب على شهادة <strong>GenAIBIZ</strong> المعتمدة دولياً من CertNexus.
+            </p>
+        </div>
+        <div class="about-image">
+            <div class="icon">&#129302;</div>
+            <h3>GenAIBIZ</h3>
+            <p>Generative AI for Business</p>
+            <div class="cert-badge">CertNexus Certified</div>
+        </div>
+    </div>
+</section>
+
+<!-- Topics -->
+<section class="section" id="topics" style="background:#fff;">
+    <div class="container">
+        <h2 class="section-title">محاور الدورة</h2>
+        <p class="section-subtitle">تغطي الدورة المحاور الرئيسية التالية لتأهيلك لاستخدام الذكاء الاصطناعي التوليدي في بيئة الأعمال</p>
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-num">1</div>
+                <h3>مقدمة في الذكاء الاصطناعي التوليدي</h3>
+                <p>فهم أساسيات الذكاء الاصطناعي التوليدي، النماذج اللغوية الكبيرة (LLMs)، وكيف تختلف عن تقنيات الذكاء الاصطناعي التقليدية.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-num">2</div>
+                <h3>تطبيقات الذكاء الاصطناعي التوليدي في الأعمال</h3>
+                <p>استكشاف حالات الاستخدام العملية في التسويق، خدمة العملاء، تطوير المنتجات، إدارة المشاريع، والعمليات التشغيلية.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-num">3</div>
+                <h3>هندسة الأوامر (Prompt Engineering)</h3>
+                <p>تعلّم كيفية كتابة أوامر فعّالة للحصول على أفضل النتائج من أدوات الذكاء الاصطناعي التوليدي مثل ChatGPT و Copilot.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-num">4</div>
+                <h3>المخاطر والاعتبارات الأخلاقية</h3>
+                <p>فهم المخاطر المحتملة، قضايا الخصوصية، التحيز في النماذج، حقوق الملكية الفكرية، والاستخدام المسؤول للتقنية.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-num">5</div>
+                <h3>استراتيجية تبني الذكاء الاصطناعي</h3>
+                <p>وضع خطة لدمج الذكاء الاصطناعي التوليدي في مؤسستك، تقييم الأدوات المناسبة، وقياس العائد على الاستثمار.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-num">6</div>
+                <h3>التطبيق العملي والمشاريع</h3>
+                <p>تمارين عملية وسيناريوهات واقعية لتطبيق ما تعلمته باستخدام أدوات الذكاء الاصطناعي التوليدي في بيئة عملك.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Audience -->
+<section class="section" id="audience">
+    <div class="container">
+        <h2 class="section-title">الفئة المستهدفة</h2>
+        <p class="section-subtitle">هذه الدورة مصممة لكل من يريد الاستفادة من الذكاء الاصطناعي التوليدي في عمله</p>
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">&#128188;</div>
+                <h3>رواد الأعمال والمدراء التنفيذيون</h3>
+                <p>لفهم كيف يمكن للذكاء الاصطناعي تحويل أعمالهم</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">&#128200;</div>
+                <h3>مدراء المشاريع والعمليات</h3>
+                <p>لتحسين الكفاءة التشغيلية واتخاذ القرارات</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">&#128227;</div>
+                <h3>فرق التسويق والمبيعات</h3>
+                <p>لإنشاء محتوى أفضل وتحسين تجربة العملاء</p>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">&#127891;</div>
+                <h3>المهنيون والموظفون</h3>
+                <p>لتطوير مهاراتهم ومواكبة التحول الرقمي</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="section" style="background:#fff;">
+    <div class="container">
+        <h2 class="section-title">لماذا هذه الدورة؟</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#127942;</div>
+                <h3>شهادة دولية معتمدة</h3>
+                <p>شهادة GenAIBIZ من CertNexus معترف بها عالمياً</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128218;</div>
+                <h3>محتوى عملي</h3>
+                <p>تمارين وسيناريوهات حقيقية من بيئة العمل</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128101;</div>
+                <h3>مدربون معتمدون</h3>
+                <p>تدريب على يد خبراء معتمدين في المجال</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128640;</div>
+                <h3>تطبيق فوري</h3>
+                <p>ابدأ بتطبيق ما تعلمته في عملك مباشرة</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Registration -->
+<section class="reg-section" id="register">
+    <div class="container">
+        <div class="reg-grid">
+            <div class="reg-info">
+                <h2>سجّل الآن في الدورة</h2>
+                <p>استثمر في مستقبلك المهني واحصل على شهادة معتمدة في الذكاء الاصطناعي التوليدي للأعمال</p>
+
+                <div class="reg-price">
+                    <div class="label">رسوم الدورة</div>
+                    <div class="amount">تواصل معنا</div>
+                </div>
+
+                <ul class="reg-includes">
+                    <li>حضور الدورة التدريبية كاملة</li>
+                    <li>المادة التدريبية الرسمية من CertNexus</li>
+                    <li>قسيمة الاختبار الدولي GenAIBIZ</li>
+                    <li>شهادة حضور معتمدة</li>
+                    <li>تمارين عملية وأنشطة تفاعلية</li>
+                    <li>دعم ما بعد الدورة</li>
+                </ul>
+            </div>
+
+            <div class="reg-form-card">
+                {% if submitted %}
+                <div class="success-msg">
+                    <h3>&#10003; تم التسجيل بنجاح!</h3>
+                    <p>شكراً لتسجيلك. سنتواصل معك قريباً بتفاصيل الدورة.</p>
+                    <p>يمكنك إتمام الدفع عبر PayPal من خلال الزر أدناه:</p>
+                    <a href="https://www.paypal.com/ncp/payment/WQ6CWZQN7945L" target="_blank" class="btn btn-paypal">
+                        &#128179; ادفع الآن عبر PayPal
+                    </a>
+                </div>
+                {% else %}
+                <h3>نموذج التسجيل</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="full_name">الاسم الكامل *</label>
+                        <input type="text" id="full_name" name="full_name" placeholder="أدخل اسمك الكامل" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني *</label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com" dir="ltr" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+966 5xx xxx xxx" dir="ltr" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="company">جهة العمل</label>
+                            <input type="text" id="company" name="company" placeholder="اسم الشركة أو المؤسسة">
+                        </div>
+                        <div class="form-group">
+                            <label for="job_title">المسمى الوظيفي</label>
+                            <input type="text" id="job_title" name="job_title" placeholder="مسماك الوظيفي">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">ملاحظات إضافية</label>
+                        <textarea id="message" name="message" placeholder="أي استفسارات أو ملاحظات..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">تسجيل</button>
+
+                    <div class="form-divider">أو</div>
+
+                    <div class="paypal-btn-wrap">
+                        <a href="https://www.paypal.com/ncp/payment/WQ6CWZQN7945L" target="_blank" class="btn btn-paypal" style="display:block;">
+                            &#128179; سجّل وادفع عبر PayPal
+                        </a>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h2>هل لديك أسئلة؟</h2>
+        <p>تواصل معنا للحصول على مزيد من المعلومات حول الدورة ومواعيد الانعقاد</p>
+        <a href="mailto:info@example.com" class="btn btn-primary">تواصل معنا</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&#169; 2026 GenAIBIZ Training. جميع الحقوق محفوظة. | شهادة معتمدة من <a href="https://certnexus.com/genaibiz/" target="_blank">CertNexus</a></p>
+    </div>
+</footer>
+
+</body>
+</html>
