@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Successful{% endblock %}
+
+{% block content %}
+<div class="success-page">
+    <div class="success-icon">&#10003;</div>
+    <h1>Payment Successful!</h1>
+    <p>You are now enrolled in <strong>{{ course.title }}</strong>.</p>
+    <a href="{% url 'my_courses' %}" class="btn btn-primary btn-lg">Go to My Courses</a>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SECRET_KEY=your-secret-key-change-in-production
+      - PAYPAL_CLIENT_ID=your-sandbox-client-id
+      - PAYPAL_CLIENT_SECRET=your-sandbox-client-secret
+      - PAYPAL_MODE=sandbox
+    volumes:
+      - db_data:/app
+    restart: unless-stopped
+
+volumes:
+  db_data:
